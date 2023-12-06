@@ -1,0 +1,99 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #013914;
+  color: white;
+  position: sticky;
+  top: 0;
+
+  &.active {
+    background-color: white;
+    color: black;
+    transition: 0.5s all ease;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    width: 1200px;
+    padding: 10px;
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+
+      .dot {
+        color: #1dbf73;
+      }
+    }
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-weight: 400;
+      font-family: "Montserrat", sans-serif;
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        cursor: pointer;
+
+        img {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .options {
+          position: absolute;
+          top: 50px;
+          right: 0;
+          background-color: white;
+          color: rgb(106, 102, 102);
+          border: 1px solid lightgray;
+          border-radius: 10px;
+          padding: 15px;
+          display: flex;
+          flex-direction: column;
+          gap: 7px;
+          width: 150px;
+          font-weight: 350;
+        }
+      }
+
+      button {
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: 1px solid white;
+        cursor: pointer;
+        background-color: transparent;
+
+        &:hover {
+          background-color: #1dbf73;
+          border-color: #1dbf73;
+        }
+      }
+    }
+  }
+
+  hr {
+    width: 99.9%;
+    height: 0;
+    margin: 0;
+    border: 0.1px solid lightgray;
+  }
+
+  .menu {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    font-weight: 300;
+    color: gray;
+    font-family: "Montserrat", sans-serif;
+  }
+}
