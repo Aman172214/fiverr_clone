@@ -6,7 +6,7 @@
   color: white;
   position: sticky;
   top: 0;
-
+  z-index: 999;
   &.active {
     background-color: white;
     color: black;
@@ -91,9 +91,10 @@
     width: 1200px;
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    padding: 7px;
     font-weight: 300;
     color: gray;
     font-family: "Montserrat", sans-serif;
+    font-size: smaller;
   }
 }
