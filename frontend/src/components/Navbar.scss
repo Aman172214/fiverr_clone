@@ -7,22 +7,35 @@
   position: sticky;
   top: 0;
   z-index: 999;
+  transition: 0.5s all ease;
+
   &.active {
     background-color: white;
     color: black;
-    transition: 0.5s all ease;
+
+    button {
+      background-color: white !important;
+      color: #1dbf73 !important;
+      border: 1px solid #1dbf73 !important;
+    }
   }
+
   .container {
-    display: flex;
-    justify-content: space-between;
     width: 1200px;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0px;
 
     .logo {
-      font-size: 30px;
+      font-size: 34px;
       font-weight: bold;
 
+      .text {
+      }
+
       .dot {
+        font-weight: bold;
         color: #1dbf73;
       }
     }
@@ -30,15 +43,19 @@
       display: flex;
       align-items: center;
       gap: 24px;
-      font-weight: 400;
       font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+
+      span {
+        white-space: nowrap;
+      }
 
       .user {
         display: flex;
         align-items: center;
         gap: 10px;
-        position: relative;
         cursor: pointer;
+        position: relative;
 
         img {
           width: 32px;
@@ -51,16 +68,17 @@
           position: absolute;
           top: 50px;
           right: 0;
+          padding: 20px;
           background-color: white;
-          color: rgb(106, 102, 102);
-          border: 1px solid lightgray;
           border-radius: 10px;
-          padding: 15px;
+          z-index: 999;
+          border: 1px solid lightgrey;
           display: flex;
           flex-direction: column;
-          gap: 7px;
+          gap: 10px;
           width: 150px;
-          font-weight: 350;
+          font-weight: 300;
+          color: gray;
         }
       }
 
@@ -69,8 +87,8 @@
         padding: 10px 20px;
         border-radius: 5px;
         border: 1px solid white;
-        cursor: pointer;
         background-color: transparent;
+        cursor: pointer;
 
         &:hover {
           background-color: #1dbf73;
@@ -81,20 +99,22 @@
   }
 
   hr {
-    width: 99.9%;
+    width: calc(100% - 2px);
     height: 0;
+    border-top: 0.5px solid #ebe9e9;
+    border-bottom: 0.5px solid #ebe9e9;
     margin: 0;
-    border: 0.1px solid lightgray;
   }
 
   .menu {
     width: 1200px;
+    padding: 10px 0px;
     display: flex;
+    gap: 20px;
     justify-content: space-between;
-    padding: 7px;
-    font-weight: 300;
     color: gray;
+    font-weight: 300;
     font-family: "Montserrat", sans-serif;
-    font-size: smaller;
+    font-size: 15px;
   }
 }

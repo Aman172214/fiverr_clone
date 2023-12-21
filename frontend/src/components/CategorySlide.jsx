@@ -2,13 +2,13 @@ import React from "react";
 import "./CategorySlide.scss";
 import { Link } from "react-router-dom";
 
-const CategorySlide = ({ item }) => {
+const CategorySlide = ({ slide }) => {
   return (
-    <Link to="/gigs/1" className="link">
+    <Link to="/gigs" className="link">
       <div className="categorySlide">
-        <img src={item.img} alt="" />
-        <span className="desc">{item.desc}</span>
-        <span className="title">{item.title}</span>
+        <img src={slide.img} alt="" />
+        <span className="desc">{slide.desc}</span>
+        <span className="title">{slide.title}</span>
       </div>
     </Link>
   );

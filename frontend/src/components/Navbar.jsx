@@ -9,7 +9,10 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   const isActive = () => {
-    scrollY > 0 ? setScroll(true) : setScroll(false);
+    if (scrollY > 0) {
+      setScroll(true);
+      setModal(false);
+    } else setScroll(false);
   };
 
   useEffect(() => {
@@ -30,89 +33,86 @@ const Navbar = () => {
     <div className={scroll || pathname !== "/" ? "navbar active" : "navbar"}>
       <div className="container">
         <div className="logo">
-          <Link to="/" className="link">
-            <span className="text">fiverr</span>
+          <Link className="link" to="/">
+            <span className="text">hyre</span>
           </Link>
           <span className="dot">.</span>
         </div>
         <div className="links">
-          <Link className="link" to="/">
-            <span>Fiverr Business</span>
-          </Link>
-          <Link className="link" to="/">
-            <span>Explore</span>
-          </Link>
-          <Link className="link" to="/">
-            <span>English</span>
-          </Link>
-          <Link className="link" to="/">
-            <span>Sign in</span>
-          </Link>
+          <span>Hyre Business</span>
+          <span>Explore</span>
+          <span>English</span>
           {!currentUser?.isSeller && <span>Become a Seller</span>}
-          {!currentUser && <button>Join</button>}
-          {currentUser && (
-            <div>
-              <div className="user" onClick={() => setModal(!modal)}>
-                <img src="" alt="" />
-                <span>{currentUser?.username}</span>
-                {modal && (
-                  <div className="options">
-                    {currentUser?.isSeller && (
-                      <>
-                        <Link className="link" to="/mygigs">
-                          <span>My Gigs</span>
-                        </Link>
-                        <Link className="link" to="/add">
-                          <span>Add New Gig</span>
-                        </Link>
-                      </>
-                    )}
-                    <Link className="link" to="/orders">
-                      <span>Orders</span>
-                    </Link>
-                    <Link className="link" to="/messages">
-                      <span>Messages</span>
-                    </Link>
-                    <Link className="link" to="/">
-                      <span>Logout</span>
-                    </Link>
-                  </div>
-                )}
-              </div>
+          {currentUser ? (
+            <div className="user" onClick={() => setModal(!modal)}>
+              <img
+                src="https://images.pexels.com/photos/1115697/pexels-photo-1115697.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                alt=""
+              />
+              <span>{currentUser?.username}</span>
+              {modal && (
+                <div className="options">
+                  {currentUser.isSeller && (
+                    <>
+                      <Link className="link" to="/mygigs">
+                        My Gigs
+                      </Link>
+                      <Link className="link" to="/add">
+                        Add New Gig
+                      </Link>
+                    </>
+                  )}
+                  <Link className="link" to="/orders">
+                    Orders
+                  </Link>
+                  <Link className="link" to="/messages">
+                    Messages
+                  </Link>
+                  <Link className="link" to="/">
+                    Logout
+                  </Link>
+                </div>
+              )}
             </div>
+          ) : (
+            <>
+              <span>Sign in</span>
+              <Link className="link" to="/register">
+                <button>Join</button>
+              </Link>
+            </>
           )}
         </div>
       </div>
-      
       {(scroll || pathname !== "/") && (
         <>
-        <hr />
+          <hr />
           <div className="menu">
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               Graphics & Design
             </Link>
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               Video & Animation
             </Link>
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               Writing & Translation
             </Link>
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               AI Services
             </Link>
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               Digital Marketing
             </Link>
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               Music & Audio
             </Link>
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               Programming & Tech
             </Link>
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               Business
             </Link>
-            <Link className="link" to="/">
+            <Link className="link menuLink" to="/">
               Lifestyle
             </Link>
           </div>

@@ -8,7 +8,7 @@ import Add from "./pages/Add";
 import Gigs from "./pages/Gigs";
 import Gig from "./pages/Gig";
 import Login from "./pages/Login";
-import Register from "./pages/Regiser";
+import Register from "./pages/Register";
 import Messages from "./pages/Messages";
 import Message from "./pages/Message";
 import MyGigs from "./pages/MyGigs";

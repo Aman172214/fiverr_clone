@@ -7,7 +7,7 @@ const Gig = () => {
     <div className="gig">
       <div className="container">
         <div className="left">
-          <span className="breadcrumbs">Liverr {">"} Graphics & Design {">"}</span>
+          <span className="breadcrumbs">Hyer {">"} Graphics & Design {">"}</span>
           <h1>I will create ai generated art for you</h1>
           <div className="user">
             <img
@@ -137,7 +137,7 @@ const Gig = () => {
               </div>
               <p>
                 I just want to say that art_with_ai was the first, and after
-                this, the only artist Ill be using on Fiverr. Communication was
+                this, the only artist Ill be using on Hyer. Communication was
                 amazing, each and every day he sent me images that I was free to
                 request changes to. They listened, understood, and delivered
                 above and beyond my expectations. I absolutely recommend this
@@ -224,7 +224,7 @@ const Gig = () => {
                 sent me images that I was free to request changes to. They
                 listened, understood, and delivered above and beyond my
                 expectations. I absolutely recommend this gig, and know already
-                that Ill be using it again very very soon
+                that I'll be using it again very very soon
               </p>
               <div className="helpful">
                 <span>Helpful?</span>
