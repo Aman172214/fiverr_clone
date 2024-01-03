@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.scss";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import request from "../utils/request";
 
 const Navbar = () => {
   const [scroll, setScroll] = useState(false);
   const [modal, setModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const { pathname } = useLocation();
 
@@ -23,10 +26,16 @@ const Navbar = () => {
     };
   }, []);
 
-  const currentUser = {
-    id: 1,
-    username: "John Doe",
-    isSeller: true,
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  const logoutHandler = async () => {
+    try {
+      await request.post("auth/logout");
+      localStorage.setItem("currentUser", null);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -45,10 +54,7 @@ const Navbar = () => {
           {!currentUser?.isSeller && <span>Become a Seller</span>}
           {currentUser ? (
             <div className="user" onClick={() => setModal(!modal)}>
-              <img
-                src="https://images.pexels.com/photos/1115697/pexels-photo-1115697.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
+              <img src={currentUser.img || "/noavatar.jpg"} alt="" />
               <span>{currentUser?.username}</span>
               {modal && (
                 <div className="options">
@@ -68,7 +74,7 @@ const Navbar = () => {
                   <Link className="link" to="/messages">
                     Messages
                   </Link>
-                  <Link className="link" to="/">
+                  <Link className="link" onClick={logoutHandler}>
                     Logout
                   </Link>
                 </div>
@@ -76,7 +82,9 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <span>Sign in</span>
+              <Link className="link" to="/login">
+                Sign in
+              </Link>
               <Link className="link" to="/register">
                 <button>Join</button>
               </Link>

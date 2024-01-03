@@ -13,14 +13,19 @@ import Messages from "./pages/Messages";
 import Message from "./pages/Message";
 import MyGigs from "./pages/MyGigs";
 import Orders from "./pages/Orders";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   const RootLayout = () => {
     return (
       <div className="app">
-        <Navbar />
-        <Outlet />
-        <Footer />
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </QueryClientProvider>
       </div>
     );
   };
