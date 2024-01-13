@@ -5,26 +5,27 @@
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 
     .addForm {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
 
       input {
-        padding: 20px;
+        padding: 10px;
       }
 
       select {
-        width: 200px;
-        padding: 20px;
+        width: 100px;
+        padding: 10px;
         align-self: flex-end;
       }
       button {
         align-self: flex-end;
         width: 100px;
         border: none;
+        border-radius: 5px;
         padding: 10px;
         color: white;
         background-color: #1dbf73;

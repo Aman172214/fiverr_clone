@@ -6,12 +6,9 @@ const upload = async (file) => {
   data.append("upload_preset", "fiverr_clone");
 
   try {
-    const response = await axios.post(
-      import.meta.env.VITE_CLOUDINARY_API,
-      data
-    );
-    console.log(response);
-    const { url } = response.data;
+    const res = await axios.post(import.meta.env.VITE_UPLOAD_LINK, data);
+
+    const { url } = res.data;
     return url;
   } catch (err) {
     console.log(err);

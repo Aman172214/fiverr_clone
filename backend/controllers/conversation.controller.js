@@ -1,7 +1,7 @@
-import Conversation from "../models/conversation.model.js";
 import createError from "../utils/createError.js";
+import Conversation from "../models/conversation.model.js";
 
-export const createConvo = async (req, res, next) => {
+export const createConversation = async (req, res, next) => {
   const newConversation = new Conversation({
     id: req.isSeller ? req.userId + req.body.to : req.body.to + req.userId,
     sellerId: req.isSeller ? req.userId : req.body.to,
@@ -18,7 +18,7 @@ export const createConvo = async (req, res, next) => {
   }
 };
 
-export const updateConvo = async (req, res, next) => {
+export const updateConversation = async (req, res, next) => {
   try {
     const updatedConversation = await Conversation.findOneAndUpdate(
       { id: req.params.id },
@@ -36,7 +36,7 @@ export const updateConvo = async (req, res, next) => {
   }
 };
 
-export const getSingleConvo = async (req, res, next) => {
+export const getSingleConversation = async (req, res, next) => {
   try {
     const conversation = await Conversation.findOne({ id: req.params.id });
     if (!conversation) return next(createError(404, "Not found!"));
@@ -46,7 +46,7 @@ export const getSingleConvo = async (req, res, next) => {
   }
 };
 
-export const getAllConvos = async (req, res, next) => {
+export const getConversations = async (req, res, next) => {
   try {
     const conversations = await Conversation.find(
       req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }

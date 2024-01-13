@@ -43,18 +43,18 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
           <Link className="link" to="/">
-            <span className="text">hyre</span>
+            <span className="text">fiverr</span>
           </Link>
           <span className="dot">.</span>
         </div>
         <div className="links">
-          <span>Hyre Business</span>
+          <span>Fiverr Business</span>
           <span>Explore</span>
           <span>English</span>
           {!currentUser?.isSeller && <span>Become a Seller</span>}
           {currentUser ? (
             <div className="user" onClick={() => setModal(!modal)}>
-              <img src={currentUser.img || "/noavatar.jpg"} alt="" />
+              <img src={currentUser.img || "/noavatar.png"} alt="" />
               <span>{currentUser?.username}</span>
               {modal && (
                 <div className="options">
@@ -83,7 +83,7 @@ const Navbar = () => {
           ) : (
             <>
               <Link className="link" to="/login">
-                Sign in
+                Login
               </Link>
               <Link className="link" to="/register">
                 <button>Join</button>

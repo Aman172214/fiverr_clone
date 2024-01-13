@@ -13,28 +13,28 @@ const Messages = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["conversations"],
     queryFn: () =>
-      request.get(`/convos`).then((res) => {
+      request.get(`/conversations`).then((res) => {
         return res.data;
       }),
   });
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return request.put(`/convos/${id}`);
+      return request.put(`/conversations/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["conversations"]);
     },
   });
 
-  const readHandler = (id) => {
+  const handleRead = (id) => {
     mutation.mutate(id);
   };
 
   return (
     <div className="messages">
       {isLoading ? (
-        "loading"
+        "loading..."
       ) : error ? (
         "error"
       ) : (
@@ -43,37 +43,42 @@ const Messages = () => {
             <h1>Messages</h1>
           </div>
           <table>
-            <tr>
-              <th>{currentUser.isSeller ? "Buyer" : "Seller"}</th>
-              <th>Last Message</th>
-              <th>Date</th>
-              <th>Action</th>
-            </tr>
-            {data.map((convo) => (
-              <tr
-                className={
-                  ((currentUser.isSeller && !convo.readBySeller) ||
-                    (!currentUser.isSeller && !convo.readByBuyer)) &&
-                  "active"
-                }
-                key={c.id}
-              >
-                <td>{currentUser.isSeller ? convo.buyerId : convo.sellerId}</td>
-                <td>
-                  <Link to={`/message/${convo.id}`} className="link">
-                    {c?.lastMessage?.substring(0, 100)}...
-                  </Link>
-                </td>
-                <td>{moment(convo.updatedAt).fromNow()}</td>
-                <td>
-                  {((currentUser.isSeller && !convo.readBySeller) ||
-                    (!currentUser.isSeller && !convo.readByBuyer)) && (
-                    <button onClick={() => readHandler(convo.id)}>
-                      Mark as Read
-                    </button>
-                  )}
-                </td>
+            <thead>
+              <tr>
+                <th>{currentUser.isSeller ? "Buyer" : "Seller"}</th>
+                <th>Last Message</th>
+                <th>Date</th>
+                <th>Action</th>
               </tr>
+            </thead>
+            {data.map((c) => (
+              <tbody key={c.id}>
+                {" "}
+                <tr
+                  className={
+                    ((currentUser.isSeller && !c.readBySeller) ||
+                      (!currentUser.isSeller && !c.readByBuyer)) &&
+                    "active"
+                  }
+                  
+                >
+                  <td>{currentUser.isSeller ? c.buyerId : c.sellerId}</td>
+                  <td>
+                    <Link to={`/message/${c.id}`} className="link">
+                      {c?.lastMessage?.substring(0, 100)}...
+                    </Link>
+                  </td>
+                  <td>{moment(c.updatedAt).fromNow()}</td>
+                  <td>
+                    {((currentUser.isSeller && !c.readBySeller) ||
+                      (!currentUser.isSeller && !c.readByBuyer)) && (
+                      <button onClick={() => handleRead(c.id)}>
+                        Mark as Read
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              </tbody>
             ))}
           </table>
         </div>

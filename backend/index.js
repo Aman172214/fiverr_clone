@@ -6,7 +6,8 @@ import gigRoute from "./routes/gig.route.js";
 import userRoute from "./routes/user.route.js";
 import reviewRoute from "./routes/review.route.js";
 import orderRoute from "./routes/order.route.js";
-import convoRoute from "./routes/conversation.route.js";
+import conversationRoute from "./routes/conversation.route.js";
+import messageRoute from './routes/message.route.js'
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -29,7 +30,8 @@ app.use("/gigs", gigRoute);
 app.use("/users", userRoute);
 app.use("/reviews", reviewRoute);
 app.use("/orders", orderRoute);
-app.use("/convos", convoRoute);
+app.use("/conversations", conversationRoute);
+app.use('/messages', messageRoute)
 
 app.use((err, req, res, next) => {
   const errStatus = err.status || 500;

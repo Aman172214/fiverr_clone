@@ -2,17 +2,17 @@ import React from "react";
 import { Slider } from "infinite-react-carousel";
 import "./Gig.scss";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import request from "../utils/request";
 import Reviews from "../components/Reviews";
 
 const Gig = () => {
   const { id } = useParams();
 
-  const { isPending, error, data } = useQuery({
+  const { isLoading, error, data } = useQuery({
     queryKey: ["gig"],
     queryFn: () =>
-      request.get(`/gigs/gig/${id}`).then((res) => {
+      request.get(`/gigs/single/${id}`).then((res) => {
         return res.data;
       }),
   });
@@ -20,13 +20,13 @@ const Gig = () => {
   const userId = data?.userId;
 
   const {
-    isPending: userIsPending,
-    error: userError,
-    data: userData,
+    isLoading: isLoadingUser,
+    error: errorUser,
+    data: dataUser,
   } = useQuery({
     queryKey: ["user"],
-    queryFn: () =>
-      request.get(`/users/${userId}`).then((res) => {
+    queryFn: async () =>
+      await request.get(`/users/${userId}`).then((res) => {
         return res.data;
       }),
     enabled: !!userId,
@@ -34,7 +34,7 @@ const Gig = () => {
 
   return (
     <div className="gig">
-      {isPending ? (
+      {isLoading ? (
         "loading..."
       ) : error ? (
         "Something went wrong!"
@@ -42,21 +42,21 @@ const Gig = () => {
         <div className="container">
           <div className="left">
             <span className="breadcrumbs">
-              Hyre {">"} Graphics & Design {">"}
+              Fiverr {">"} Graphics & Design {">"}
             </span>
             <h1>{data.title}</h1>
-            {userIsPending ? (
+            {isLoadingUser ? (
               "loading..."
-            ) : userError ? (
+            ) : errorUser ? (
               "Something went wrong!"
             ) : (
               <div className="user">
                 <img
                   className="pp"
-                  src={userData.img || "/noavatar.jpg"}
+                  src={dataUser.img || "/noavatar.png"}
                   alt=""
                 />
-                <span>{userData.username}</span>
+                <span>{dataUser.username}</span>
                 {!isNaN(data.totalStars / data.starNumber) && (
                   <div className="stars">
                     {Array(Math.round(data.totalStars / data.starNumber))
@@ -70,24 +70,23 @@ const Gig = () => {
               </div>
             )}
             <Slider slidesToShow={1} arrowsScroll={1} className="slider">
-              {data.imgaes.map((img) => (
+              {data.images.map((img) => (
                 <img key={img} src={img} alt="" />
               ))}
             </Slider>
             <h2>About This Gig</h2>
             <p>{data.desc}</p>
-
-            {userIsPending ? (
+            {isLoadingUser ? (
               "loading..."
-            ) : userError ? (
+            ) : errorUser ? (
               "Something went wrong!"
             ) : (
               <div className="seller">
                 <h2>About The Seller</h2>
                 <div className="user">
-                  <img src={userData.img || "/noavatar.jpg"} alt="" />
+                  <img src={dataUser.img || "/noavatar.png"} alt="" />
                   <div className="info">
-                    <span>{userData.username}</span>
+                    <span>{dataUser.username}</span>
                     {!isNaN(data.totalStars / data.starNumber) && (
                       <div className="stars">
                         {Array(Math.round(data.totalStars / data.starNumber))
@@ -107,7 +106,7 @@ const Gig = () => {
                   <div className="items">
                     <div className="item">
                       <span className="title">From</span>
-                      <span className="desc">{userData.country}</span>
+                      <span className="desc">{dataUser.country}</span>
                     </div>
                     <div className="item">
                       <span className="title">Member since</span>
@@ -127,7 +126,7 @@ const Gig = () => {
                     </div>
                   </div>
                   <hr />
-                  <p>{userData.desc}</p>
+                  <p>{dataUser.desc}</p>
                 </div>
               </div>
             )}
@@ -142,7 +141,7 @@ const Gig = () => {
             <div className="details">
               <div className="item">
                 <img src="/clock.png" alt="" />
-                <span>{data.deliveryDate} Days Delivery</span>
+                <span>{data.deliveryTime} Days Delivery</span>
               </div>
               <div className="item">
                 <img src="/recycle.png" alt="" />
@@ -157,7 +156,9 @@ const Gig = () => {
                 </div>
               ))}
             </div>
-            <button>Continue</button>
+            <Link to={`/payment/${id}`}>
+              <button>Continue</button>
+            </Link>
           </div>
         </div>
       )}

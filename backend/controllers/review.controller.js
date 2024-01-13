@@ -3,7 +3,8 @@ import Review from "../models/review.model.js";
 import Gig from "../models/gig.model.js";
 
 export const createReview = async (req, res, next) => {
-  if (req.isSeller) return next(createError(403, "Not authorized!"));
+  if (req.isSeller)
+    return next(createError(403, "Sellers can't create a review!"));
 
   const newReview = new Review({
     userId: req.userId,
@@ -13,12 +14,12 @@ export const createReview = async (req, res, next) => {
   });
 
   try {
-    const existingReview = await Review.findOne({
+    const review = await Review.findOne({
       gigId: req.body.gigId,
       userId: req.userId,
     });
 
-    if (existingReview)
+    if (review)
       return next(
         createError(403, "You have already created a review for this gig!")
       );
@@ -38,12 +39,6 @@ export const getReviews = async (req, res, next) => {
   try {
     const reviews = await Review.find({ gigId: req.params.gigId });
     res.status(200).send(reviews);
-  } catch (err) {
-    next(err);
-  }
-};
-export const deleteReview = async (req, res, next) => {
-  try {
   } catch (err) {
     next(err);
   }

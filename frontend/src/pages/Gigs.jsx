@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import request from "../utils/request";
 import { useLocation } from "react-router-dom";
 
-function Gigs() {
+const Gigs =()=> {
   const [sort, setSort] = useState("sales");
   const [open, setOpen] = useState(false);
   const minRef = useRef();
@@ -13,17 +13,19 @@ function Gigs() {
 
   const { search } = useLocation();
 
-  const { isPending, error, data, refetch } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["gigs"],
     queryFn: () =>
       request
         .get(
-          `/gigs/${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
+          `/gigs${search}?&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
         )
         .then((res) => {
           return res.data;
         }),
   });
+
+  console.log(data);
 
   const reSort = (type) => {
     setSort(type);
@@ -32,7 +34,7 @@ function Gigs() {
 
   useEffect(() => {
     refetch();
-  }, [sort,refetch]);
+  }, [refetch, sort]);
 
   const apply = () => {
     refetch();
@@ -42,17 +44,17 @@ function Gigs() {
     <div className="gigs">
       <div className="container">
         <span className="breadcrumbs">
-          Hyre {">"} Graphics & Design {">"}
+          Fiverr {">"} Graphics & Design {">"}
         </span>
         <h1>AI Artists</h1>
         <p>
-          Explore the boundaries of art and technology with Hyre's AI artists
+          Explore the boundaries of art and technology with Fiverr's AI artists
         </p>
         <div className="menu">
           <div className="left">
             <span>Budget</span>
-            <input ref={minRef} type="number" placeholder="min" />
-            <input ref={maxRef} type="number" placeholder="max" />
+            <input ref={minRef} type="number" placeholder="min" min={0}/>
+            <input ref={maxRef} type="number" placeholder="max" min={0}/>
             <button onClick={apply}>Apply</button>
           </div>
           <div className="right">
@@ -73,11 +75,11 @@ function Gigs() {
           </div>
         </div>
         <div className="cards">
-          {isPending
+          {isLoading
             ? "loading..."
             : error
-            ? "Something went wrong!"
-            : data.map((gig) => <GigCard key={gig._id} gig={gig} />)}
+            ? "No gigs found!"
+            : data?.map((gig) => <GigCard key={gig._id} gig={gig} />)}
         </div>
       </div>
     </div>
