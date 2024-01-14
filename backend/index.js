@@ -30,8 +30,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.options("*", cors());
-
 app.use("/auth", authRoute);
 app.use("/gigs", gigRoute);
 app.use("/users", userRoute);
