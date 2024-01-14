@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-  baseURL: "http://localhost:5050/",
+  baseURL: "https://fiverr-clone-api.vercel.app/",
   withCredentials: true,
 });
 
