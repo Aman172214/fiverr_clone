@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="home">
       <Hero />
-      <Slides slidesToShow={5} arrowsScroll={5}>
+      <Slides itemsToShow={5} itemsToScroll={5}>
         {categories.map((slide) => (
           <CategorySlide key={slide.id} slide={slide} />
         ))}
@@ -184,7 +184,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Slides slidesToShow={4} arrowsScroll={4}>
+      <Slides itemsToShow={4} itemsToScroll={4}>
         {projects.map((slide) => (
           <ProjectSlide key={slide.id} slide={slide} />
         ))}

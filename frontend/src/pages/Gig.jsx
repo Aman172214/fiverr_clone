@@ -1,12 +1,13 @@
-import React from "react";
-import { Slider } from "infinite-react-carousel";
+import React, { useState } from "react";
 import "./Gig.scss";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
+import ReactSimplyCarousel from "react-simply-carousel";
 import request from "../utils/request";
 import Reviews from "../components/Reviews";
 
 const Gig = () => {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const { id } = useParams();
 
   const { isLoading, error, data } = useQuery({
@@ -69,11 +70,61 @@ const Gig = () => {
                 )}
               </div>
             )}
-            <Slider slidesToShow={1} arrowsScroll={1} className="slider">
-              {data.images.map((img) => (
-                <img key={img} src={img} alt="" />
-              ))}
-            </Slider>
+            <div className="slider">
+              <ReactSimplyCarousel
+                activeSlideIndex={activeSlideIndex}
+                onRequestChange={setActiveSlideIndex}
+                itemsToShow={1}
+                itemsToScroll={1}
+                forwardBtnProps={{
+                  //here you can also pass className, or any other button element attributes
+                  style: {
+                    alignSelf: "center",
+                    background: "black",
+                    border: "none",
+                    borderRadius: "50%",
+                    color: "white",
+                    cursor: "pointer",
+                    fontSize: "20px",
+                    height: 30,
+                    lineHeight: 1,
+                    textAlign: "center",
+                    width: 30,
+                  },
+                  children: <span>{`>`}</span>,
+                }}
+                backwardBtnProps={{
+                  //here you can also pass className, or any other button element attributes
+                  style: {
+                    alignSelf: "center",
+                    background: "black",
+                    border: "none",
+                    borderRadius: "50%",
+                    color: "white",
+                    cursor: "pointer",
+                    fontSize: "20px",
+                    height: 30,
+                    lineHeight: 1,
+                    textAlign: "center",
+                    width: 30,
+                  },
+                  children: <span>{`<`}</span>,
+                }}
+                responsiveProps={[
+                  {
+                    itemsToShow: 1,
+                    itemsToScroll: 1,
+                    minWidth: 768,
+                  },
+                ]}
+                speed={500}
+                easing="linear"
+              >
+                {data.images.map((img) => (
+                  <img key={img} src={img} alt="" />
+                ))}
+              </ReactSimplyCarousel>
+            </div>
             <h2>About This Gig</h2>
             <p>{data.desc}</p>
             {isLoadingUser ? (
