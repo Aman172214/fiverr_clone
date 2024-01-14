@@ -23,12 +23,14 @@ mongoose
 
 app.use(
   cors({
-    origin: ["https://fiverr-clone-client.vercel.app"],
+    origin: "https://fiverr-clone-client.vercel.app",
     credentials: true,
   })
 );
 app.use(express.json());
 app.use(cookieParser());
+
+app.options("*", cors());
 
 app.use("/auth", authRoute);
 app.use("/gigs", gigRoute);
