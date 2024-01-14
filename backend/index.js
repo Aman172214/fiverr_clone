@@ -21,7 +21,7 @@ mongoose
     console.log(err);
   });
 
-app.use(cors({ origin: "https://fiverr-clone-client.vercel.app/", credentials: true }));
+app.use(cors({ origin: "https://fiverr-clone-client.vercel.app", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
