@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-  baseURL: "https://fiverr-clone-api.vercel.app",
+  baseURL: "https://fiverr-clone-api-eotf.onrender.com",
   withCredentials: true,
 });
 
